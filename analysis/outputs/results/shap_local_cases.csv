@@ -1,0 +1,16 @@
+case,rank,feature,value,shap
+true_positive,1,housing_status,BA,0.9412233233451843
+true_positive,2,device_os,windows,0.7005706429481506
+true_positive,3,bank_branch_count_8w,0,0.4685831367969513
+true_positive,4,income,0.9,0.45872625708580017
+true_positive,5,phone_home_valid,0,0.44138622283935547
+false_positive,1,housing_status,BA,1.1029255390167236
+false_positive,2,device_os,windows,0.7213689088821411
+false_positive,3,income,0.9,0.4655230641365051
+false_positive,4,phone_home_valid,0,0.3946094810962677
+false_positive,5,name_email_similarity,0.8879422,-0.31690725684165955
+false_negative,1,device_distinct_emails_8w,2,1.0518540143966675
+false_negative,2,prev_address_months_count,49,-0.5838460922241211
+false_negative,3,name_email_similarity,0.05416768,0.48367345333099365
+false_negative,4,device_os,linux,-0.43916410207748413
+false_negative,5,keep_alive_session,0,0.33991485834121704
