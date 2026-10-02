@@ -1,0 +1,2 @@
+model,AUC-ROC,AUC-PR,Recall@5%FPR,Precision,Recall,F1
+Logistic Regression,0.8779,0.1582,0.4969,0.0611,0.7592,0.113
