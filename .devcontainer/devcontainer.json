@@ -1,0 +1,12 @@
+{
+  "name": "PROJ519 Dissertation Analysis",
+  "image": "mcr.microsoft.com/devcontainers/miniconda:1-3",
+  "postCreateCommand": "git lfs pull && conda env create -f environment.yml",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}

@@ -35,3 +35,7 @@ jupyter lab
 ```
 
 Open the notebooks in JupyterLab and run them in the order listed above. The Conda environment uses Python 3.11 and is defined in `environment.yml`.
+
+## GitHub Codespaces
+
+Open the repository on GitHub, choose **Code → Codespaces → Create codespace on main**, and wait for setup to finish. The Codespace configuration downloads the Git LFS dataset and creates the `dissertation` Conda environment. Open `1_EDA.ipynb`, select the `dissertation` kernel, and run the notebooks in order. Codespaces usage may count toward your account's included quota or incur charges.
