@@ -2,6 +2,8 @@
 
 This repository contains the analysis for a dissertation studying explainability and fairness in machine-learning fraud detection using the Bank Account Fraud (BAF) dataset. The notebooks compare logistic regression and LightGBM, explain model predictions with SHAP, and audit outcomes across customer groups.
 
+[Open the interactive notebook guide](https://ghimireasmit.github.io/PROJ519-MSc-Dissertation-and-Research-Skills/) to launch the notebooks in Google Colab one at a time. GitHub Pages hosts the guide; Python runs in Colab.
+
 ## Analysis workflow
 
 Run the notebooks in order:

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <title>PROJ519 analysis runner</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #172b4d;
+      background: #f3f6fa;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 48px 20px;
+    }
+
+    main {
+      width: min(100%, 720px);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      color: #52667a;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 10px 0;
+      color: #102a43;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      letter-spacing: -.04em;
+      line-height: 1.08;
+    }
+
+    .intro {
+      margin: 0 0 28px;
+      color: #52667a;
+      font-size: 1.08rem;
+      line-height: 1.6;
+    }
+
+    .notice, .runner {
+      border: 1px solid #d9e2ec;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgb(16 42 67 / 7%);
+    }
+
+    .notice {
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      border-left: 5px solid #d9822b;
+      line-height: 1.55;
+    }
+
+    .notice strong { color: #102a43; }
+
+    .runner { padding: clamp(22px, 5vw, 36px); }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #52667a;
+      font-size: .92rem;
+      font-weight: 650;
+    }
+
+    .progress-track {
+      height: 8px;
+      margin: 12px 0 28px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #e6edf4;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: #168a83;
+      transition: width 180ms ease;
+    }
+
+    .step-label {
+      margin: 0 0 8px;
+      color: #168a83;
+      font-size: .85rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      color: #102a43;
+      font-size: clamp(1.45rem, 4vw, 2rem);
+    }
+
+    .description {
+      margin: 0 0 24px;
+      color: #52667a;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    button, .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 17px;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      color: #fff;
+      background: #087e78;
+    }
+
+    .primary:hover { background: #06645f; }
+
+    .secondary {
+      color: #243b53;
+      background: #eaf0f6;
+    }
+
+    .secondary:hover { background: #d9e2ec; }
+
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #f0b429;
+      outline-offset: 3px;
+    }
+
+    .status {
+      min-height: 48px;
+      margin: 18px 0 0;
+      color: #334e68;
+      line-height: 1.55;
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      color: #52667a;
+      font-size: .92rem;
+    }
+
+    .footer a { color: #087e78; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">MSc Data Science and Business Analytics · PROJ519</p>
+    <h1>Run the analysis, one notebook at a time</h1>
+    <p class="intro">Follow the four notebooks in order. This page will ask before opening each one.</p>
+
+    <aside class="notice">
+      <strong>Before starting:</strong> GitHub Pages hosts this guide but cannot run Python.
+      Each notebook opens in Google Colab. Save a copy to your Google Drive, and put
+      <code>Base.csv</code> in <code>MyDrive/Dissertation/data/</code> so the notebook can find it.
+      The first notebook can create the faster <code>Base.parquet</code> copy.
+    </aside>
+
+    <section class="runner" aria-labelledby="notebook-title">
+      <div class="progress-row">
+        <span id="progress-label">Notebook 1 of 4</span>
+        <span id="progress-percent">0% complete</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Notebook progress" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="step-label" id="step-label">Step 1</p>
+      <h2 id="notebook-title">Ready?</h2>
+      <p class="description" id="description"></p>
+      <div class="actions" id="actions"></div>
+      <p class="status" id="status" aria-live="polite"></p>
+    </section>
+
+    <nav class="footer" aria-label="Project links">
+      <a href="https://github.com/ghimireasmit/PROJ519-MSc-Dissertation-and-Research-Skills">Project repository</a>
+      <a href="https://github.com/ghimireasmit/PROJ519-MSc-Dissertation-and-Research-Skills/tree/main/data">Dataset folder</a>
+      <a href="https://github.com/ghimireasmit/PROJ519-MSc-Dissertation-and-Research-Skills/blob/main/README.md">Setup instructions</a>
+    </nav>
+  </main>
+
+  <script>
+    const notebooks = [
+      {
+        file: "1_EDA.ipynb",
+        title: "Exploratory data analysis",
+        description: "Inspect and prepare the BAF data, create the train/test sets, and run the logistic regression baseline."
+      },
+      {
+        file: "2_Modelling.ipynb",
+        title: "Model comparison",
+        description: "Tune and compare logistic regression with LightGBM. This notebook uses the files produced by notebook 1."
+      },
+      {
+        file: "3_SHAP.ipynb",
+        title: "Explainability with SHAP",
+        description: "Explore global and individual model explanations. This notebook uses the trained models from notebook 2."
+      },
+      {
+        file: "4_Fairness.ipynb",
+        title: "Fairness audit",
+        description: "Review group-level outcomes and fairness analyses using the predictions and models from earlier notebooks."
+      }
+    ];
+
+    const progressKey = "proj519-notebook-runner-step";
+    let step = Number.parseInt(localStorage.getItem(progressKey) || "0", 10);
+    if (!Number.isInteger(step) || step < 0 || step > notebooks.length) step = 0;
+    let opened = false;
+
+    const $ = (id) => document.getElementById(id);
+    const progressBar = document.querySelector('[role="progressbar"]');
+
+    function render() {
+      const complete = step === notebooks.length;
+      const notebook = notebooks[step];
+      const percent = Math.round((step / notebooks.length) * 100);
+
+      $("progress-label").textContent = complete ? "All notebooks complete" : `Notebook ${step + 1} of ${notebooks.length}`;
+      $("progress-percent").textContent = `${percent}% complete`;
+      $("progress-fill").style.width = `${percent}%`;
+      progressBar.setAttribute("aria-valuenow", String(step));
+
+      if (complete) {
+        $("step-label").textContent = "Finished";
+        $("notebook-title").textContent = "You’ve reached the end";
+        $("description").textContent = "All four notebooks have been marked complete in this browser.";
+        $("actions").innerHTML = '<button class="secondary" id="reset">Start again</button>';
+        $("status").textContent = "";
+        $("reset").addEventListener("click", () => {
+          step = 0;
+          opened = false;
+          localStorage.setItem(progressKey, "0");
+          render();
+        });
+        return;
+      }
+
+      $("step-label").textContent = `Step ${step + 1}`;
+      $("notebook-title").textContent = notebook.title;
+      $("description").textContent = notebook.description;
+      $("status").textContent = opened
+        ? "The notebook opened in a new tab. Run it in Colab, then return here when you’re ready to continue."
+        : `Would you like to open ${notebook.file} in Google Colab now?`;
+
+      if (opened) {
+        $("actions").innerHTML = '<button class="primary" id="continue">I’m finished — continue</button><button class="secondary" id="stay">Not yet</button>';
+        $("continue").addEventListener("click", () => {
+          step += 1;
+          opened = false;
+          localStorage.setItem(progressKey, String(step));
+          render();
+        });
+        $("stay").addEventListener("click", () => {
+          $("status").textContent = "No problem. Your place is saved; continue when you’re ready.";
+        });
+      } else {
+        const colabUrl = `https://colab.research.google.com/github/ghimireasmit/PROJ519-MSc-Dissertation-and-Research-Skills/blob/main/${notebook.file}`;
+        $("actions").innerHTML = '<button class="primary" id="open">Yes, open in Colab</button><button class="secondary" id="later">Not now</button>';
+        $("open").addEventListener("click", () => {
+          window.open(colabUrl, "_blank", "noopener,noreferrer");
+          opened = true;
+          render();
+        });
+        $("later").addEventListener("click", () => {
+          $("status").textContent = "No problem. You can open this notebook whenever you’re ready.";
+        });
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
